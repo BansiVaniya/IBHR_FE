@@ -1,0 +1,1162 @@
+<!-- Employee Tab -->
+<div class="tab-pane fade show active" id="v-pills-employee" role="tabpanel" aria-labelledby="v-pills-employee-tab">
+    <!-- <input type="hidden" id="isPaymentDetailsVisible" value="{{ isPaymentDetailsVisible() }}" /> -->
+    <div class="employee-tab">
+        <div class="row align-items-center">`
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <!-- Tabs navs -->
+                <ul class="nav nav-tabs mb-3" id="employee" role="tablist">                    
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link tab" id="hire-tab" data-tab_name="new-hire" data-toggle="tab" href="#new-hire" role="tab" aria-controls="new-hire" aria-selected="true" value="new" onclick="">New Hire <span id="newHireCount"></span></a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link tab" id="master-tab" data-tab_name="master" data-toggle="tab" href="#master" role="tab" aria-controls="master" aria-selected="false" value="master" onclick="">Master <span id="masterHireCount"></span></a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link ta" id="inActive-tab" data-tab_name="inActive" data-toggle="tab" href="#inActive" role="tab" aria-controls="inActive" aria-selected="false" value="inActive" onclick="">Inactive <span id="inActiveCount"></span> </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link tab" id="rejected-tab" data-tab_name="rejected" data-toggle="tab" href="#rejected" role="tab" aria-controls="rejected" aria-selected="false" value="rejected" onclick="">Rejected <span id="rejectedCount"></span> </a>
+                    </li>
+                </ul>
+                <!-- End Tabs navs -->
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6 text-right">
+                <div class="search-form">
+                    <form class="form-inline" action="#">
+                        <img src="{{ asset('assets/icons/search.svg') }}" class="searchIcon" alt="">
+                        <input class="form-control" type="search" id="btnSearch" data-search_for="" placeholder="Search..." aria-label="Search" autocomplete="off">
+                       
+                        <a class="btn add_new_hire" href="{{ route('addHire') }}" data-toggle="tooltip" data-placement="bottom" title="Add New Employee">Add <i class="fa fa-plus" aria-hidden="true"></i></a>                                             
+                        
+                        <div class="dropdown exportDropdown">
+                            <button class="btn btn-lg dropdown-toggle exportBtn" type="button"  data-toggle="dropdown">
+                                <img src="{{ asset('assets/icons/download_icon.svg') }}" alt="" class="exportFile"> Export
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item export-btn" href="{{ url('/employee-report') }}"><img src="{{ asset('assets/icons/export_download.svg') }}" alt="" class="exportFile">Employee Data</a>
+                                <a class="dropdown-item export-btn" href="{{ url('/crux-report') }}"><img src="{{ asset('assets/icons/export_download.svg') }}" alt="" class="exportFile">CRUX Report</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs content -->
+        <div class="tab-content" id="employee-content">
+
+            <!-- New Hire Tab Content -->
+            <div class="tab-pane fade @if(Session::get('menuTab') == 'newHire') show active @endif" id="new-hire" role="tabpanel" aria-labelledby="hire-tab">
+                <div class="new-hire-data">
+                    <div class="table-responsive">
+                        <input type="hidden" value="1" class="curant_tab" id="current_page" data-state_tab="new_hire">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="name-head sort" data-name="empName" data-sort="desc">NAME
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="designation sort" data-name="empDesignation">
+                                        <div class="dropdown">
+                                            <a class="btn designation" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                DESIGNATION <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input designation" id="{{ $val['degName'] }}" data-designationNewHire="{{ $val['degName'] }}" value="{{ $val['degId'] }}" onclick="getAllNewHire('new')">
+                                                    <label class="custom-control-label" for="{{ $val['degName'] }}">{{ $val['degName'] }}</label>
+                                                </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilter('designation','new')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll_des" onclick="selectAll('designation','new')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="dropdown">
+                                            <a class="btn residency" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                RESIDENCY SATUS <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input residential" onclick="getAllNewHire()" id="residential" value="Resident">
+                                                    <label class="custom-control-label" for="residential">Resident</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox " href="#">
+                                                    <input type="checkbox" class="custom-control-input residential" id="visa" value="Visa" onclick="getAllNewHire()">
+                                                    <label class="custom-control-label" for="visa">Visa</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox " href="#">
+                                                    <input type="checkbox" class="custom-control-input residential" id="na" value="N/A" onclick="getAllNewHire()">
+                                                    <label class="custom-control-label" for="na">N/A</label>
+                                                </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilter('residential','new')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectAll('residential','new')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="email sort" data-name="empEmail" data-sort="desc">EMAIL
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="contact sort" data-name="empPhone" data-sort="desc">CONTACT
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="marital-status">
+                                        <div class="dropdown">
+                                            <a class="btn status" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                MARITAL STATUS <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMarital" id="single" value="Single" onclick="getAllNewHire()">
+                                                    <label class="custom-control-label" for="single">Single</label>
+                                                </a>
+
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMarital" id="married" value="Married" onclick="getAllNewHire()">
+                                                    <label class="custom-control-label" for="married">Married</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMarital" id="divorce" value="Divorce" onclick="getAllNewHire()">
+                                                    <label class="custom-control-label" for="divorce">Divorce</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMarital" id="singleParent" value="Single Parent" onclick="getAllNewHire()">
+                                                    <label class="custom-control-label" for="singleParent">Single Parent</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMarital" id="widow" value="Window" onclick="getAllNewHire()">
+                                                    <label class="custom-control-label" for="widow">Widow</label>
+                                                </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilter('empMarital','new')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectAll('empMarital','new')">Select All</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="text-center actions">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tData">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pages">
+                        <div class="row align-items-center">
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <div class="form-group pageList displayNone pageNumberShowHide">
+                                    <select class="form-control" id="totalPages" onchange="getAllNewHire()">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 col-md-9 col-lg-9 text-right">
+                                <div class="pageLink"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End -->
+
+            <!-- Master Tab Content -->
+            <div class="tab-pane fade @if(Session::get('menuTab') == 'master') show active @endif" id="master" role="tabpanel" aria-labelledby="master-tab">
+                <div class="master-data">
+                    <div class="table-responsive">
+                        <input type="hidden" value="1" class="curant_tab" id="current_page_mater" data-state_tab="master">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="name-head sort" data-name="empName" data-sort="desc">NAME
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="emp-id sort" data-name="employeeId" data-sort="desc">EMPLOYEE ID
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                DESIGNATION <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input designationMaster" id="{{ $val['degId'] }}" data-designationMaster="{{ $val['degName'] }}" value="{{ $val['degId'] }}" onclick="getAllNewHire('master')">
+                                                    <label class="custom-control-label" for="{{ $val['degId'] }}">{{ $val['degName'] }}</label>
+                                                </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilter('designationMaster','master')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectAll('designationMaster','master')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="pay-rate sort" data-name="payRate" data-sort="desc">Pay Rate
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="joining-date sort" data-name="doj" data-sort="desc">DATE OF JOINING
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                WORK AUTHORIZATION <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input residentialMaster" onclick="getAllNewHire('master')" id="workResidential" value="Resident">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <label class="custom-control-label" for="workResidential">Resident</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox " href="#">
+                                                    <input type="checkbox" class="custom-control-input residentialMaster" id="workVisa" value="Visa" onclick="getAllNewHire('master')">
+                                                    <label class="custom-control-label" for="workVisa">Visa</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input residentialMaster" id="worNA" value="N/A" onclick="getAllNewHire('master')">
+                                                    <label class="custom-control-label" for="worNA">N/A</label>
+                                                </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilter('residentialMaster','master')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectAll('residentialMaster','master')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="contact sort" data-name="empPhone" data-sort="desc">CONTACT NO.
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="email sort" data-name="empEmail" data-sort="desc">EMAIL
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="paymode">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                METHOD OF PAYMENT <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input payMode" id="{{$unqId}}" value="{{$val}}" onclick="getAllNewHire('master')">
+                                                    <label class="custom-control-label" for="{{$unqId}}">{{strtoupper($val)}}</label>
+                                                </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilter('payMode','master')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectAll('payMode','master')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="store">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                STORE
+                                                <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                    <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                        <input type="checkbox" class="custom-control-input store" id="master{{ $val['storeId'] }}{{ $val['storeName'] }}" value="{{ $val['storeId'] }}" onclick="getAllNewHire('master')">
+                                                        <label class="custom-control-label" for="master{{ $val['storeId'] }}{{ $val['storeName'] }}">{{ $val['storeName'] }}</label>
+                                                    </a>
+                                                    <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                        <input type="checkbox" class="custom-control-input store" id="master{{ $key }}{{ $val->storeId }}" value="{{ $val->storeId }}" onclick="getAllNewHire('master')">
+                                                        <label class="custom-control-label" for="master{{ $key }}{{ $val->storeId }}">{{ $val->storeName }}</label>
+                                                    </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilter('store','master')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectAll('store','master')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="text-center actions">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mData">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pages">
+                        <div class="row align-items-center">
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <div class="form-group pageList displayNone pageNumberMasterShowHide">
+                                    <select class="form-control" id="totalPagesMaster" onchange="getAllNewHire('master')">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 col-md-9 col-lg-9 text-right">
+                                <div class="pageLinkMaster"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End -->
+
+            <!-- In Active Tab Content -->
+            <div class="tab-pane fade @if(Session::get('menuTab') == 'inactive') show active @endif" id="inActive" role="tabpanel" aria-labelledby="inActive-tab">
+                <div class="inActive-data">
+                    <div class="table-responsive">
+                        <input type="hidden" value="1" class="curant_tab" id="current_page_inactive" data-state_tab="inactive">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="name-head sort" data-name="empName" data-sort="desc">NAME
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="emp-id sort" data-name="employeeId" data-sort="desc">EMPLOYEE ID
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                DESIGNATION <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input deg" id="{{$val['degId']}}{{$unqId}}" value="{{ $val['degId'] }}" onchange="getResigned()">
+                                                    <label class="custom-control-label" for="{{$val['degId']}}{{$unqId}}">{{$val['degName']}}</label>
+                                                </a>
+
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilterInactive('deg')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectFilterInactive('deg')">Select All</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="joining-date sort" data-name="DOJ" data-sort="desc">DATE OF JOINING
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="contact sort" data-name="empPhone" data-sort="desc">CONTACT NO.
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="email sort" data-name="empEmail" data-sort="desc">EMAIL
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col">Reason</th>
+                                    <th scope="col" class="paymodeInactive">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                METHOD OF PAYMENT <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input payMode" id="{{$unqId}}" onclick="getResigned()" value="{{$key}}">
+                                                    <label class="custom-control-label" for="{{$unqId}}">{{$val}}</label>
+                                                </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilterInactive('payMode')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectFilterInactive('payMode')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="store text-end">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                STORE <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                        <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                            <input type="checkbox" class="custom-control-input storeInactive" id="{{$unqId}}" value="{{$val['storeId']}}" onchange="getResigned()">
+                                                            <label class="custom-control-label" for="{{$unqId}}">{{$val['storeName']}}</label>
+                                                        </a>
+                                                    <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                        <input type="checkbox" class="custom-control-input storeInactive" id="{{$unqId}}" value="{{$val->storeId}}" onchange="getResigned()">
+                                                        <label class="custom-control-label" for="{{$unqId}}">{{$val->storeName}}</label>
+                                                    </a>
+                                                <div class="filter-clear">
+                                                    <div class="filter-clear">
+                                                        <button type="button" class="btn clear-btn text-center" onclick="clearFilterInactive('storeInactive')">Clear Filter</button>
+                                                        <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectFilterInactive('storeInactive')">Select All</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyInActive">
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pages">
+                        <div class="row">
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <div class="form-group pageList">
+                                    <select class="form-control" id="totalPagesinActive" onchange="getResigned()">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 col-md-9 col-lg-9 text-right">
+                                <div class="pageLinkinactive"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End -->
+
+            <!-- Rejected Tab Content -->
+            <div class="tab-pane fade @if(Session::get('menuTab') == 'rejected') show active @endif" id="rejected" role="tabpanel" aria-labelledby="rejected-tab">
+                <div class="rejected-data">
+                    <div class="table-responsive">
+                        <input type="hidden" value="1" class="curant_tab" id="current_page_rejected" data-state_tab="rejected">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="name-head sort" data-name="empName" data-sort="desc">NAME
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                DESIGNATION <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input degRejected" id="{{$unqId}}" value="{{ $val['degId'] }}" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="{{$unqId}}">{{$val['degName']}}</label>
+                                                </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilterRejected('degRejected')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectFilterRejected('degRejected')">Select All</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </th>
+
+                                    <th scope="col">
+                                        <div class="dropdown">
+                                            <a class="btn residency" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                RESIDENCY SATUS <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input residentialRejected" onclick="getAllRejected()" id="residentialRejected" value="Resident">
+                                                    <label class="custom-control-label" for="residentialRejected">Resident</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox " href="#">
+                                                    <input type="checkbox" class="custom-control-input residentialRejected" id="visaRejected" value="Visa" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="visaRejected">Visa</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox " href="#">
+                                                    <input type="checkbox" class="custom-control-input residentialRejected" id="naRejected" value="N/A" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="naRejected">N/A</label>
+                                                </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilterRejected('residentialRejected','rejected')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectFilterRejected('residentialRejected','rejected')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="email sort" data-name="empEmail" data-sort="desc">EMAIL
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="contact sort" data-name="empPhone" data-sort="desc">CONTACT
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="marital-status">
+                                        <div class="dropdown">
+                                            <a class="btn status" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                MARITAL STATUS <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMaritalRejected" id="singleRjected" value="Single" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="singleRjected">Single</label>
+                                                </a>
+
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMaritalRejected" id="marriedRjected" value="Married" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="marriedRjected">Married</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMaritalRejected" id="divorceRjected" value="Divorce" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="divorceRjected">Divorce</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMaritalRejected" id="singleParentRjected" value="Single Parent" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="singleParentRjected">Single Parent</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMaritalRejected" id="widowRjected" value="Window" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="widowRjected">Widow</label>
+                                                </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilterRejected('empMaritalRejected','rejected')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectFilterRejected('empMaritalRejected','rejected')">Select All</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="text-center actions">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyRejected">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pages">
+                        <div class="row align-items-center">
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <div class="form-group pageList displayNone pageNumberShowHideRejecetd">
+                                    <select class="form-control" id="totalPages_rejected" onchange="getAllRejected()">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 col-md-9 col-lg-9 text-right">
+                                <div class="pageLinkrejected "></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End -->
+        </div>
+    </div>
+
+</div>
+<!-- End Employee Tab -->
+ <!-- <script src="{{ asset('js/pageJS/home.js')}}{{linkVersion()}}"></script> -->
+
+ <!-- Employee Tab -->
+<!-- <div class="tab-pane fade show active" id="v-pills-employee" role="tabpanel" aria-labelledby="v-pills-employee-tab">
+    <input type="hidden" id="isPaymentDetailsVisible" value="{{ isPaymentDetailsVisible() }}" />
+    <div class="employee-tab">
+        <div class="row align-items-center">
+            <div class="col-sm-12 col-md-6 col-lg-6"> -->
+                <!-- Tabs navs -->
+                <!-- <ul class="nav nav-tabs mb-3" id="employee" role="tablist">
+                    @if(tabsRightsCheck("new-hire"))
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link tab @if(Session::get('menuTab') == 'newHire') active @endif" id="hire-tab" data-tab_name="new-hire" data-toggle="tab" href="#new-hire" role="tab" aria-controls="new-hire" aria-selected="true" value="new" onclick="getAllNewHire('new')">New Hire <span id="newHireCount">({{$newHireCount}})</span></a>
+                    </li>
+                    @endif
+                    @if(tabsRightsCheck("master"))
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link tab @if(Session::get('menuTab') == 'master') active @endif" id="master-tab" data-tab_name="master" data-toggle="tab" href="#master" role="tab" aria-controls="master" aria-selected="false" value="master" onclick="getAllNewHire('master')">Master <span id="masterHireCount">({{$boardedCount}})</span></a>
+                    </li>
+                    @endif
+                    @if(tabsRightsCheck("inactive"))
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link tab @if(Session::get('menuTab') == 'inactive') active @endif" id="inActive-tab" data-tab_name="inActive" data-toggle="tab" href="#inActive" role="tab" aria-controls="inActive" aria-selected="false" value="inActive" onclick="getResigned()">Inactive <span id="inActiveCount">({{$resignedCount}})</span> </a>
+                    </li>
+                    @endif
+                    @if(tabsRightsCheck("rejected"))
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link tab @if(Session::get('menuTab') == 'rejected') active @endif" id="rejected-tab" data-tab_name="rejected" data-toggle="tab" href="#rejected" role="tab" aria-controls="rejected" aria-selected="false" value="rejected" onclick="getAllRejected()">Rejected <span id="rejectedCount">({{$rejectedCount}})</span> </a>
+                    </li>
+                    @endif
+                </ul> -->
+                <!-- End Tabs navs -->
+            <!-- </div>
+            <div class="col-sm-12 col-md-6 col-lg-6 text-right">
+                <div class="search-form">
+                    <form class="form-inline" action="#">
+                        <img src="{{ asset('assets/icons/search.svg') }}" class="searchIcon" alt="">
+                        <input class="form-control" type="search" id="btnSearch" data-search_for="" placeholder="Search..." aria-label="Search" autocomplete="off">
+                        @if(auth()->user()->roleId == "1" || auth()->user()->roleId == "3")
+                        <a class="btn add_new_hire" href="{{ route('addHire') }}" data-toggle="tooltip" data-placement="bottom" title="Add New Employee">Add <i class="fa fa-plus" aria-hidden="true"></i></a>
+                        @endif
+                        
+
+                        @if(tabsRightsCheck("export-btn"))
+                        <div class="dropdown exportDropdown">
+                            <button class="btn btn-lg dropdown-toggle exportBtn" type="button"  data-toggle="dropdown">
+                                <img src="{{ asset('assets/icons/download_icon.svg') }}" alt="" class="exportFile"> Export
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item export-btn" href="{{ url('/employee-report') }}"><img src="{{ asset('assets/icons/export_download.svg') }}" alt="" class="exportFile">Employee Data</a>
+                                <a class="dropdown-item export-btn" href="{{ url('/crux-report') }}"><img src="{{ asset('assets/icons/export_download.svg') }}" alt="" class="exportFile">CRUX Report</a>
+                            </div>
+                        </div>
+                        @endif
+                    </form>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Tabs content -->
+        <!-- <div class="tab-content" id="employee-content"> -->
+
+            <!-- New Hire Tab Content -->
+            <!-- @if(tabsRightsCheck("new-hire"))
+            <div class="tab-pane fade @if(Session::get('menuTab') == 'newHire') show active @endif" id="new-hire" role="tabpanel" aria-labelledby="hire-tab">
+                <div class="new-hire-data">
+                    <div class="table-responsive">
+                        <input type="hidden" value="1" class="curant_tab" id="current_page" data-state_tab="new_hire">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="name-head sort" data-name="empName" data-sort="desc">NAME
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="designation sort" data-name="empDesignation">
+                                        <div class="dropdown">
+                                            <a class="btn designation" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                DESIGNATION <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                @foreach($designation as $val)
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input designation" id="{{ $val['degName'] }}" data-designationNewHire="{{ $val['degName'] }}" value="{{ $val['degId'] }}" onclick="getAllNewHire('new')">
+                                                    <label class="custom-control-label" for="{{ $val['degName'] }}">{{ $val['degName'] }}</label>
+                                                </a>
+                                                @endforeach
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilter('designation','new')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll_des" onclick="selectAll('designation','new')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="dropdown">
+                                            <a class="btn residency" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                RESIDENCY SATUS <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input residential" onclick="getAllNewHire()" id="residential" value="Resident">
+                                                    <label class="custom-control-label" for="residential">Resident</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox " href="#">
+                                                    <input type="checkbox" class="custom-control-input residential" id="visa" value="Visa" onclick="getAllNewHire()">
+                                                    <label class="custom-control-label" for="visa">Visa</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox " href="#">
+                                                    <input type="checkbox" class="custom-control-input residential" id="na" value="N/A" onclick="getAllNewHire()">
+                                                    <label class="custom-control-label" for="na">N/A</label>
+                                                </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilter('residential','new')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectAll('residential','new')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="email sort" data-name="empEmail" data-sort="desc">EMAIL
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="contact sort" data-name="empPhone" data-sort="desc">CONTACT
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="marital-status">
+                                        <div class="dropdown">
+                                            <a class="btn status" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                MARITAL STATUS <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMarital" id="single" value="Single" onclick="getAllNewHire()">
+                                                    <label class="custom-control-label" for="single">Single</label>
+                                                </a>
+
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMarital" id="married" value="Married" onclick="getAllNewHire()">
+                                                    <label class="custom-control-label" for="married">Married</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMarital" id="divorce" value="Divorce" onclick="getAllNewHire()">
+                                                    <label class="custom-control-label" for="divorce">Divorce</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMarital" id="singleParent" value="Single Parent" onclick="getAllNewHire()">
+                                                    <label class="custom-control-label" for="singleParent">Single Parent</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMarital" id="widow" value="Window" onclick="getAllNewHire()">
+                                                    <label class="custom-control-label" for="widow">Widow</label>
+                                                </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilter('empMarital','new')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectAll('empMarital','new')">Select All</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="text-center actions">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tData">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pages">
+                        <div class="row align-items-center">
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <div class="form-group pageList displayNone pageNumberShowHide">
+                                    <select class="form-control" id="totalPages" onchange="getAllNewHire()">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 col-md-9 col-lg-9 text-right">
+                                <div class="pageLink"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif -->
+            <!-- End -->
+
+            <!-- Master Tab Content -->
+            <!-- @if(tabsRightsCheck("master"))
+            <div class="tab-pane fade @if(Session::get('menuTab') == 'master') show active @endif" id="master" role="tabpanel" aria-labelledby="master-tab">
+                <div class="master-data">
+                    <div class="table-responsive">
+                        <input type="hidden" value="1" class="curant_tab" id="current_page_mater" data-state_tab="master">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="name-head sort" data-name="empName" data-sort="desc">NAME
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="emp-id sort" data-name="employeeId" data-sort="desc">EMPLOYEE ID
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                DESIGNATION <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                @foreach($designation as $val)
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input designationMaster" id="{{ $val['degId'] }}" data-designationMaster="{{ $val['degName'] }}" value="{{ $val['degId'] }}" onclick="getAllNewHire('master')">
+                                                    <label class="custom-control-label" for="{{ $val['degId'] }}">{{ $val['degName'] }}</label>
+                                                </a>
+                                                @endforeach
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilter('designationMaster','master')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectAll('designationMaster','master')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    @if(isPaymentDetailsVisible())
+                                    <th scope="col" class="pay-rate sort" data-name="payRate" data-sort="desc">Pay Rate
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    @endif
+                                    <th scope="col" class="joining-date sort" data-name="doj" data-sort="desc">DATE OF JOINING
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                WORK AUTHORIZATION <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input residentialMaster" onclick="getAllNewHire('master')" id="workResidential" value="Resident">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <label class="custom-control-label" for="workResidential">Resident</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox " href="#">
+                                                    <input type="checkbox" class="custom-control-input residentialMaster" id="workVisa" value="Visa" onclick="getAllNewHire('master')">
+                                                    <label class="custom-control-label" for="workVisa">Visa</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input residentialMaster" id="worNA" value="N/A" onclick="getAllNewHire('master')">
+                                                    <label class="custom-control-label" for="worNA">N/A</label>
+                                                </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilter('residentialMaster','master')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectAll('residentialMaster','master')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="contact sort" data-name="empPhone" data-sort="desc">CONTACT NO.
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="email sort" data-name="empEmail" data-sort="desc">EMAIL
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    @if(isPaymentDetailsVisible())
+                                    <th scope="col" class="paymode">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                METHOD OF PAYMENT <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                @foreach(getMethodOfPayment() as $key => $val)
+                                                @php $unqId = $key.'_'.uniqid(); @endphp
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input payMode" id="{{$unqId}}" value="{{$val}}" onclick="getAllNewHire('master')">
+                                                    <label class="custom-control-label" for="{{$unqId}}">{{strtoupper($val)}}</label>
+                                                </a>
+                                                @endforeach
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilter('payMode','master')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectAll('payMode','master')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    @endif
+                                    <th scope="col" class="store">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                STORE
+                                                <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                @if(in_array(auth()->user()->roleId,fullAccessRoleArr()))
+                                                    @foreach($allStore as $val)
+                                                    <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                        <input type="checkbox" class="custom-control-input store" id="master{{ $val['storeId'] }}{{ $val['storeName'] }}" value="{{ $val['storeId'] }}" onclick="getAllNewHire('master')">
+                                                        <label class="custom-control-label" for="master{{ $val['storeId'] }}{{ $val['storeName'] }}">{{ $val['storeName'] }}</label>
+                                                    </a>
+                                                    @endforeach
+                                                @else
+                                                    @foreach(storeData() as $key => $val)
+                                                    <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                        <input type="checkbox" class="custom-control-input store" id="master{{ $key }}{{ $val->storeId }}" value="{{ $val->storeId }}" onclick="getAllNewHire('master')">
+                                                        <label class="custom-control-label" for="master{{ $key }}{{ $val->storeId }}">{{ $val->storeName }}</label>
+                                                    </a>
+                                                    @endforeach
+                                                @endif
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilter('store','master')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectAll('store','master')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="text-center actions">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mData">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pages">
+                        <div class="row align-items-center">
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <div class="form-group pageList displayNone pageNumberMasterShowHide">
+                                    <select class="form-control" id="totalPagesMaster" onchange="getAllNewHire('master')">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 col-md-9 col-lg-9 text-right">
+                                <div class="pageLinkMaster"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif -->
+            <!-- End -->
+
+            <!-- In Active Tab Content -->
+            <!-- @if(tabsRightsCheck("inactive"))
+            <div class="tab-pane fade @if(Session::get('menuTab') == 'inactive') show active @endif" id="inActive" role="tabpanel" aria-labelledby="inActive-tab">
+                <div class="inActive-data">
+                    <div class="table-responsive">
+                        <input type="hidden" value="1" class="curant_tab" id="current_page_inactive" data-state_tab="inactive">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="name-head sort" data-name="empName" data-sort="desc">NAME
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="emp-id sort" data-name="employeeId" data-sort="desc">EMPLOYEE ID
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                DESIGNATION <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+
+                                            <div class="dropdown-menu p-3">
+                                                @foreach($designation as $key => $val)
+                                                @php $unqId = $key.'_'.uniqid(); @endphp
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input deg" id="{{$val['degId']}}{{$unqId}}" value="{{ $val['degId'] }}" onchange="getResigned()">
+                                                    <label class="custom-control-label" for="{{$val['degId']}}{{$unqId}}">{{$val['degName']}}</label>
+                                                </a>
+                                                @endforeach
+
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilterInactive('deg')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectFilterInactive('deg')">Select All</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="joining-date sort" data-name="DOJ" data-sort="desc">DATE OF JOINING
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="contact sort" data-name="empPhone" data-sort="desc">CONTACT NO.
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="email sort" data-name="empEmail" data-sort="desc">EMAIL
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col">Reason</th>
+                                    @if(isPaymentDetailsVisible())
+                                    <th scope="col" class="paymodeInactive">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                METHOD OF PAYMENT <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                @foreach(getMethodOfPayment() as $key => $val)
+                                                @php $unqId = $key.'_'.uniqid(); @endphp
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input payMode" id="{{$unqId}}" onclick="getResigned()" value="{{$key}}">
+                                                    <label class="custom-control-label" for="{{$unqId}}">{{$val}}</label>
+                                                </a>
+                                                @endforeach
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilterInactive('payMode')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectFilterInactive('payMode')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    @endif
+                                    <th scope="col" class="store text-end">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                STORE <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                @if(in_array(auth()->user()->roleId,fullAccessRoleArr()))
+                                                    @foreach($allStore as $key => $val)
+                                                    @php $unqId = $key.'_'.uniqid(); @endphp
+                                                        <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                            <input type="checkbox" class="custom-control-input storeInactive" id="{{$unqId}}" value="{{$val['storeId']}}" onchange="getResigned()">
+                                                            <label class="custom-control-label" for="{{$unqId}}">{{$val['storeName']}}</label>
+                                                        </a>
+                                                    @endforeach
+                                                @else
+                                                    @foreach(storeData() as $key => $val)
+                                                    @php $unqId = $key.'_'.uniqid(); @endphp
+                                                    <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                        <input type="checkbox" class="custom-control-input storeInactive" id="{{$unqId}}" value="{{$val->storeId}}" onchange="getResigned()">
+                                                        <label class="custom-control-label" for="{{$unqId}}">{{$val->storeName}}</label>
+                                                    </a>
+                                                    @endforeach
+                                                @endif
+                                                <div class="filter-clear">
+                                                    <div class="filter-clear">
+                                                        <button type="button" class="btn clear-btn text-center" onclick="clearFilterInactive('storeInactive')">Clear Filter</button>
+                                                        <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectFilterInactive('storeInactive')">Select All</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyInActive">
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pages">
+                        <div class="row">
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <div class="form-group pageList">
+                                    <select class="form-control" id="totalPagesinActive" onchange="getResigned()">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 col-md-9 col-lg-9 text-right">
+                                <div class="pageLinkinactive"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif -->
+            <!-- End -->
+
+            <!-- Rejected Tab Content -->
+            <!-- @if(tabsRightsCheck("rejected"))
+            <div class="tab-pane fade @if(Session::get('menuTab') == 'rejected') show active @endif" id="rejected" role="tabpanel" aria-labelledby="rejected-tab">
+                <div class="rejected-data">
+                    <div class="table-responsive">
+                        <input type="hidden" value="1" class="curant_tab" id="current_page_rejected" data-state_tab="rejected">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="name-head sort" data-name="empName" data-sort="desc">NAME
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col">
+                                        <div class="dropdown">
+                                            <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                DESIGNATION <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+
+                                            <div class="dropdown-menu p-3">
+                                                @foreach($designation as $key => $val)
+                                                @php $unqId = $key.'_'.uniqid(); @endphp
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input degRejected" id="{{$unqId}}" value="{{ $val['degId'] }}" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="{{$unqId}}">{{$val['degName']}}</label>
+                                                </a>
+                                                @endforeach
+
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilterRejected('degRejected')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectFilterRejected('degRejected')">Select All</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </th>
+
+                                    <th scope="col">
+                                        <div class="dropdown">
+                                            <a class="btn residency" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                RESIDENCY SATUS <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input residentialRejected" onclick="getAllRejected()" id="residentialRejected" value="Resident">
+                                                    <label class="custom-control-label" for="residentialRejected">Resident</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox " href="#">
+                                                    <input type="checkbox" class="custom-control-input residentialRejected" id="visaRejected" value="Visa" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="visaRejected">Visa</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox " href="#">
+                                                    <input type="checkbox" class="custom-control-input residentialRejected" id="naRejected" value="N/A" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="naRejected">N/A</label>
+                                                </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilterRejected('residentialRejected','rejected')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectFilterRejected('residentialRejected','rejected')">Select All</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="email sort" data-name="empEmail" data-sort="desc">EMAIL
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="contact sort" data-name="empPhone" data-sort="desc">CONTACT
+                                        <img src="{{ asset('assets/icons/up_down.svg') }}" class="sortArrow" alt="">
+                                    </th>
+                                    <th scope="col" class="marital-status">
+                                        <div class="dropdown">
+                                            <a class="btn status" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                MARITAL STATUS <img src="{{ asset('assets/icons/filter.png') }}" class="filter" alt="">
+                                            </a>
+                                            <div class="dropdown-menu p-3">
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMaritalRejected" id="singleRjected" value="Single" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="singleRjected">Single</label>
+                                                </a>
+
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMaritalRejected" id="marriedRjected" value="Married" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="marriedRjected">Married</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMaritalRejected" id="divorceRjected" value="Divorce" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="divorceRjected">Divorce</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMaritalRejected" id="singleParentRjected" value="Single Parent" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="singleParentRjected">Single Parent</label>
+                                                </a>
+                                                <a class="dropdown-item custom-control custom-checkbox" href="#">
+                                                    <input type="checkbox" class="custom-control-input empMaritalRejected" id="widowRjected" value="Window" onclick="getAllRejected()">
+                                                    <label class="custom-control-label" for="widowRjected">Widow</label>
+                                                </a>
+                                                <div class="filter-clear">
+                                                    <button type="button" class="btn clear-btn text-center" onclick="clearFilterRejected('empMaritalRejected','rejected')">Clear Filter</button>
+                                                    <button type="button" class="btn clear-btn text-center" id="selectAll" onclick="selectFilterRejected('empMaritalRejected','rejected')">Select All</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="text-center actions">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyRejected">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pages">
+                        <div class="row align-items-center">
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <div class="form-group pageList displayNone pageNumberShowHideRejecetd">
+                                    <select class="form-control" id="totalPages_rejected" onchange="getAllRejected()">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 col-md-9 col-lg-9 text-right">
+                                <div class="pageLinkrejected "></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif -->
+            <!-- End -->
+        <!-- </div>
+    </div>
+
+</div> -->
+<!-- End Employee Tab -->
+ <!-- @push('scripts')
+ <script src="{{ asset('js/pageJS/home.js')}}{{linkVersion()}}"></script>
+ @endpush -->

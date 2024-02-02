@@ -1,0 +1,90 @@
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab { box-shadow: 0 3px 10px rgb(0 0 0 / 20%); border-radius: 7px; padding-top: 15px; background: var(--white);}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .nav-tabs { border: none; word-break: normal; white-space: nowrap; overflow: auto; display: block; margin-bottom: 0 !important; padding-bottom: 15px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .nav-tabs::-webkit-scrollbar { width: 9px; height: 9px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .nav-tabs::-webkit-scrollbar-track {background: #ffffff;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .nav-tabs::-webkit-scrollbar-thumb { background-color: rgb(6, 6, 6, 0.3); border-radius: 10px; border: 3px solid #ffffff;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .nav-tabs .nav-item {border-right: 1px solid rgba(36, 2, 79, 0.3); display: inline-block; padding: 0 15px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .nav-tabs .nav-item:last-child {border-right: none;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .nav-tabs .nav-link { color: var(--black); font-size: 14px; font-family: 'Roboto', sans-serif; font-weight: 700; margin: 0; border: none;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .nav-tabs .nav-link.pending {color: red;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .nav-tabs .nav-link.active { color: var(--theme-clr-green); border: 1px solid var(--theme-clr-green); border-radius: 4px; }
+/* .main-page .side-menu .side-content .menu-content .tab-content .employee-tab .nav-tabs .nav-link.active::before { content: ''; position: absolute; bottom: -16px; left: 15px; border-bottom: 2px solid var(--black); height: 5px; width: 75%;} */
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .search-form {display: inline-block;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .form-inline { position: relative; display: inline;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .form-inline .searchIcon { position: absolute; top: 4px; left: 8px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .form-inline .form-control { color: var(--black); font-size: 14px; font-family: 'Roboto', sans-serif; font-weight: 400; padding-left: 30px; margin-right: 7px; box-shadow: none; outline: none; max-width: 178px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .form-inline .btn { color: var(--white); font-size: 14px; font-family: 'Roboto', sans-serif; font-weight: 700; background: var(--theme-clr-green); box-shadow: none; padding-right: 15px; padding-left: 15px; position: relative; margin-right: 7px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .form-inline .btn.export-btn {padding-right: 34px !important;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .form-inline .btn img.exportFile { position: absolute; top: 0; bottom: 0; margin: auto; right: 13px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .form-inline .exportDropdown {display: inline-block;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .form-inline .exportDropdown .exportBtn {padding: 6px 34px 6px 15px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .form-inline .exportDropdown .dropdown-toggle::after {display: none;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .form-inline .exportDropdown.show .dropdown-menu.show {left: -65px !important; border-radius: 10px; box-shadow: 0px 4px 8px 0 rgb(0 0 0 / 0.4); z-index: 99;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .form-inline .exportDropdown .dropdown-menu .dropdown-item { color: var(--black); font-size: 16px; font-weight: 500; font-family: 'Roboto', sans-serif; margin: 0; border-bottom: 1px dashed rgb(0, 0, 0, 0.3); position: relative; padding: 6px 24px 6px 30px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .form-inline .exportDropdown .dropdown-menu .dropdown-item:last-child {border-bottom: none;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .form-inline .exportDropdown .dropdown-menu .dropdown-item .exportFile {position: absolute; left: 10px; top: 0; bottom: 0; margin: auto;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table-responsive { min-height: 270px; max-height: calc(100vh - 286px); overflow: auto;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table-responsive::-webkit-scrollbar { width: 11px; height: 11px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table-responsive::-webkit-scrollbar-track {background: #ffffff;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table-responsive::-webkit-scrollbar-thumb { background-color: rgb(6, 6, 6, 0.3); border-radius: 10px; border: 3px solid #ffffff;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table tbody tr {cursor: pointer;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table tbody tr.disable {cursor: unset;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table tbody tr:hover {background: #F4F4F4;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table thead { background: #dbeddd;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th { color: var(--black); font-size: 14px; font-family: 'Roboto', sans-serif; font-weight: 700; margin: 0; text-transform: uppercase; position: relative; white-space: nowrap; word-break: normal; cursor: pointer; position: sticky; top: 0; z-index: 9; background: #dbeddd;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th img.sortArrow {width: 18px; height: 18px; margin-right: 4px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .dropdown-menu { z-index: 1; border-radius: 7px; border-color: rgb(36 2 79 / 50%);}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .dropdown-menu.show { display: block; max-height: 200px; overflow: auto; padding: 15px 15px 0 !important; top: 10px !important; left: -8px !important;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .dropdown-menu.show::-webkit-scrollbar { width: 11px; height: 11px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .dropdown-menu.show::-webkit-scrollbar-track {background: #ffffff;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .dropdown-menu.show::-webkit-scrollbar-thumb { background-color: rgb(6, 6, 6, 0.3); border-radius: 10px; border: 3px solid #ffffff;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .dropdown-menu .filter-clear { position: sticky; bottom: 0; background: var(--white); z-index: 99; text-align: center;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .dropdown-menu label.custom-control-label { color: var(--black); font-size: 14px; font-family: 'Roboto', sans-serif; font-weight: 500; margin: 0; text-transform: capitalize;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .dropdown-menu label.rejected {color: #F4002C;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .dropdown-menu label.resigned {color: rgba(0, 0, 0, 0.5);}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th.actions {cursor: unset;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .btn { color: var(--black); font-size: 14px; font-family: 'Roboto', sans-serif; font-weight: 700; margin: 0; padding: 0 17px 0 0; text-transform: capitalize; box-shadow: none; position: relative; top: 1px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .dropdown-menu .clear-btn { color: var(--white); font-size: 12px; font-family: 'Roboto', sans-serif; font-weight: 600; margin: 15px 5px; background: var(--theme-clr-green); text-align: center; box-shadow: none; border-radius: 0; padding: 0 15px; border: 2px solid var(--theme-clr-green);}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .dropdown-item:hover {cursor: pointer;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .dropdown-menu .custom-checkbox .custom-control-label { position: relative; cursor: pointer;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .dropdown-menu .custom-checkbox .custom-control-label::before { position: absolute; content: ''; top: 0; bottom: 0; margin: auto; border-radius: 10px; background: url("../assets/icons/disable_checked.svg") no-repeat center; border: 1px solid #B5B4B4; background-color: #B5B4B4; box-shadow: none;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .dropdown-menu .custom-checkbox .custom-control-input:checked~.custom-control-label::after { position: absolute; content: ''; top: 0; bottom: 0; margin: auto; background-color: var(--theme-clr-green); border-color: var(--theme-clr-green); border-radius: 10px; box-shadow: none;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .filter { position: absolute; top: 0; bottom: 0; right: 0; margin: auto;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .dropdown .dropdown-item:focus { color: #212529; background: transparent;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .arrow-up { position: absolute; top: 11px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table th .arrow-down { position: absolute; bottom: 10px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table .name-head .arrow-up,
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table .name-head .arrow-down {left: 53px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table .email .arrow-up,
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table .email .arrow-down {left: 55px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table .contact .arrow-up,
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table .contact .arrow-down {left: 75px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table tbody tr {border-bottom: 1px solid #D3D6DD;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table tbody tr.disable {background: rgba(217, 217, 217, 0.29);}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table tbody tr.disable td {opacity: 0.4;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table tbody tr.disable td ul img {opacity: 1 !important;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td { color: var(--black); font-size: 14px; font-family: 'Roboto', sans-serif; font-weight: 500; margin: 0; white-space: nowrap; word-break: normal; vertical-align: middle; padding: 17px 12px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td .name-title { position: relative; left: 0; padding-left: 52px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td .name-title h6 { color: var(--black); font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: 500; margin: 0;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td p { color: #808080; font-size: 14px; font-family: 'Roboto', sans-serif; font-weight: 400; margin: 0;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td .name span { color: var(--black); font-size: 15px; font-family: 'Roboto', sans-serif; font-weight: 700; margin: 0; padding: 0; width: 40px; height: 40px; border-radius: 30px; line-height: 40px; background: #D3D6DD; text-transform: uppercase; text-align: center; display: inline-block; position: absolute; left: 0; top: 0; bottom: 0; margin: auto;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td .birthday { position: absolute; left: 27px; top: 15px; background: #F49200; border-radius: 11px; line-height: 16px; height: 18px; width: 18px; text-align: center; display: inline-block;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td .birthday img { width: 100%; max-width: 14px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td .status-bar .new-hire { color: var(--black); font-weight: 700; background: rgba(76, 164, 86, 0.2); border-radius: 4px; padding: 4px 6px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td .status-bar .resigned { color: rgba(0, 0, 0, 0.5); font-weight: 700; background: rgba(34, 51, 84, 0.2); border-radius: 4px; padding: 4px 6px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td .status-bar .pending { color: rgba(0, 0, 0, 0.5); font-weight: 700; background: rgba(34, 51, 84, 0.2); border-radius: 4px; padding: 4px 6px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td ul { list-style: none; padding: 0; margin: 0;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td ul li { display: inline; padding: 0px 2px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td ul li:last-child {padding-right: 0;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td .status-bar .requested { color: #FFAF39; font-weight: 700; background: #FFF6E8; border-radius: 4px; padding: 4px 6px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td .status-bar .on-boarded { color: #3BB900; font-weight: 700; background: #ECFBE6; border-radius: 4px; padding: 4px 6px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .table td .status-bar .rejected { color: #F4002C; font-weight: 700; background: #FFE8EC; border-radius: 4px; padding: 4px 6px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .pages { padding: 15px 15px; position: sticky; bottom: 0; background: white; z-index: 9; border-bottom-left-radius: 7px; border-bottom-right-radius: 7px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .pages .pageList { display: inline-block; margin: 0; background: var(--theme-clr-green); padding: 0 10px; border-radius: 4px;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .pages .pageList .form-control { color: #F2F2F2; font-size: 16px; font-family: 'Poppins', sans-serif; font-weight: 700; margin: 0; background-color: var(--theme-clr-green); border: none; padding-top: 7px; padding-bottom: 7px; box-shadow: none; padding-left: 0; padding-right: 0;}
+.main-page .side-menu .side-content .menu-content .tab-content .employee-tab .new-hire-data .pages .pageList .form-control option { background: var(--white); color: #495057;}
+.main-page .side-menu .side-content .employee-tab .new-hire-data .pages .pagination { display: inline-flex; margin: 0;}
+.main-page .side-menu .side-content .employee-tab .new-hire-data .pages .pagination .page-item .page-link { color: #74929F; font-size: 16px; font-family: 'Poppins', sans-serif; font-weight: 700; margin: 0; border: none; box-shadow: none; border-radius: 7px; padding-right: 20px; padding-left: 20px;}
+.main-page .side-menu .side-content .employee-tab .new-hire-data .pages .pagination .page-item.active .page-link { color: var(--white); background: var(--theme-clr-green);}
+
+/* ============== End New Hire Tab List CSS ================ */
