@@ -23,12 +23,21 @@
                                     Please enter your email/Employee ID and password to login
                                 </p>
                                 <div class="form-part">
-                                    <form method="POST" action="">
-                                        <div class="form-group">
+                                  <form [formGroup]="loginForm">
+                                    <div class="form-group">
 
                                             <div class="input-icon">
-                                                <input id="email" type="text" placeholder="Email Address/Employee ID" class="form-control red" name="email" value="" />
-                                                <img class="icon-first" src="../../../../../assets/icons/email.svg" />
+                                              <mat-form-field appearance="outline">
+                                                <mat-label>Email Address</mat-label>
+                                                <input
+                                                matInput
+                                                placeholder="Event Name"
+                                                formControlName="email"
+                                                autocomplete="off"
+                                              />                                                <!-- <img matSuffix src="assets/icon/message.svg" alt=""> -->
+                                                <img matSuffix class="icon-first" src="../../../../../assets/icons/email.svg" />
+                                            </mat-form-field>
+                                                <!-- <input id="email" type="text" placeholder="Email Address/Employee ID" class="form-control red" name="email" value="" /> -->
                                             </div>
                                             <p class="error">
                                                 <span></span>
@@ -37,7 +46,7 @@
                                                 <span></span>
                                             </p>
                                         </div>
-                                            
+
                                         <div class="form-group">
                                             <div class="input-icon with-last">
                                                 <input id="password" type="password" placeholder="Password" class="form-control red" name="password" />
@@ -49,7 +58,7 @@
                                             </p>
                                         </div>
                                         <div class="form-group">
-                                        
+
                                             <div class="row">
                                                 <div class="col-sm-12 text-right">
                                                     <a class="forgot-text" href="">
