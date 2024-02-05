@@ -4,5 +4,5 @@ import { ForgotPasswordComponent } from './shared/components/auth/forgot-passwor
 
 export const routes: Routes = [
     {path: '', component: LoginComponent},
-    {path: 'app-forgot-password', component: ForgotPasswordComponent}
+    {path: 'app-forgot-password', component: ForgotPasswordComponent},
 ];
