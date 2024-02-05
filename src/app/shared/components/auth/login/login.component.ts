@@ -3,15 +3,14 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {EMAIL_PATTERN} from '../../../helpers/emailValidation';
 // import {MatInputModule} from '@angular/material/input';
 // import {MatFormFieldModule} from '@angular/material/form-field';
-// import { MatNativeDateModule } from '@angular/material/core';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule,MatFormFieldModule],
+  imports: [MatInputModule, ReactiveFormsModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
